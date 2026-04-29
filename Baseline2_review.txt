@@ -1,0 +1,348 @@
+Absolutely — I went through **Baseline 2 (DehazeDCT)** and compared it against **Baseline 1 (DWT-FFC + ConvNeXt)**. At a high level, **Baseline 2 keeps the core intuition of Baseline 1** — *non-homogeneous haze needs both strong global/contextual modeling and frequency-aware restoration* — but it **changes the main representation-learning mechanism** from **FFC + ConvNeXt** to a **deformable-convolution-based transformer-like architecture**, then adds a **separate lightweight refinement transformer** for color/detail cleanup. The main assignment for Baseline 2 is exactly this comparison: *what changed relative to Baseline 1, and why?* [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 1) What Baseline 2 is trying to solve
+
+The paper starts from the same problem setting as Baseline 1: **non-homogeneous dehazing**, where haze is spatially irregular, dense in some regions, and much harder than standard homogeneous haze handled by the atmospheric scattering model (ASM). The authors argue that while deep learning has clearly outperformed classical ASM-based approaches for this task, existing methods still struggle because **high-resolution hazy images are expensive to process**, and common architectures each have limitations: **CNNs** often rely on large fixed kernels and strong inductive bias, while **transformers** capture long-range dependencies but are often too memory/computation heavy for very large images like **4000×6000**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+So the motivation of Baseline 2 is:
+
+*   keep strong global/contextual modeling,
+*   keep adaptive handling of complex haze patterns,
+*   **improve efficiency for high-resolution images**,
+*   and still preserve/recover frequency/detail information and color fidelity. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+That is already the first major conceptual difference from Baseline 1: **Baseline 1 is mainly solving the representation + small-data problem** using **DWT + FFC + pretrained ConvNeXt**, while **Baseline 2 is more explicitly solving the “how do we model long-range structure efficiently on very high-res images?” problem** using **DCNv4-based transformer-like blocks**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 2) Core architecture of Baseline 2
+
+The overall model in Baseline 2 is composed of **two modules**, not just a single two-branch generator as in Baseline 1:
+
+1.  **Dehazing module**
+2.  **Refinement module** [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+Inside the **Dehazing module**, there are again **two branches**:
+
+*   a **main transformer-like dehazing branch** built from **DCNFormer blocks**, and
+*   a **frequency-aware branch** (borrowed conceptually from prior frequency-aware / DWT-FFC style designs). [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+Then, after preliminary dehazing, the output is passed to a separate **lightweight Retinex-inspired transformer refinement module** that improves **color correction** and **structure/detail refinement**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+So if I compress Baseline 2 into one sentence:
+
+> **Baseline 2 does dehazing in two stages: first remove haze with a DCNv4-based transformer-like + frequency-aware dehazing module, then refine colors/details with a lightweight Retinex-inspired transformer.** [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 3) What is the key technical idea of Baseline 2?
+
+The key new idea is the **DCNFormer block**. Instead of using:
+
+*   standard convolution only, or
+*   full self-attention as in a normal transformer,
+
+the paper uses **Deformable Convolution v4 (DCNv4)** as the core operator inside a **transformer-like block**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+The paper’s argument is that DCNv4 gives them two things at once:
+
+### (a) **Long-range dependency**
+
+Like transformers, they want the model to capture information beyond a tiny local window. For haze, this matters because haze is not purely local — recovering one region may depend on scene-wide context, illumination, and global degradation patterns. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### (b) **Adaptive spatial aggregation**
+
+Unlike fixed-grid convolution, deformable convolution learns **offsets** for where to sample features. That means the network can adaptively focus on the spatial structures that matter for a given input image/region, which is useful for **irregular haze patterns**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+The authors specifically emphasize that **traditional CNNs with large fixed kernels** can be powerful but are computationally expensive and less adaptive, while **standard self-attention** is flexible but has quadratic cost in resolution. Their solution is to replace attention with **DCNv4**, which they present as a more efficient route to transformer-like behavior on high-res dehazing. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 4) What exactly is a DCNFormer block?
+
+The DCNFormer block is designed to resemble a transformer block structurally, but instead of self-attention as the core mixing operation, it uses **DCNv4**. The paper says the block includes normalization and a feed-forward network like transformer-style designs, but its central feature interaction is done by deformable convolution. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+More specifically, deformable convolution learns:
+
+*   **offsets** $$\Delta p$$ that shift the sampling points away from the regular convolution grid, and
+*   **modulation scalars** $$m$$ that control the importance of those sampled features. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+The paper also highlights a very specific change from older deformable convolution variants: **DCNv4 removes the softmax normalization on the modulation scalars** that was used in DCNv3. According to the paper, this gives:
+
+*   **unbounded dynamic weights**,
+*   **faster convergence**, and
+*   **faster forward speed**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+This is a major point because it explains why Baseline 2 calls itself a **Deformable Convolutional Transformer** rather than a standard transformer. It wants the **benefits of adaptive, long-range modeling**, but with **better efficiency for restoration on large images**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 5) Role of the frequency-aware branch
+
+Baseline 2 does **not** abandon frequency information. In fact, it explicitly says it keeps a **frequency-aware branch** as an auxiliary branch in the dehazing module. The figure and text indicate that this branch is related to the earlier **DWT-FFC frequency branch** idea from Baseline 1 / related work. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+That means the authors are **not rejecting** the Baseline 1 insight that frequency-domain information matters. They are effectively saying:
+
+> “We still want frequency representations because they help with structure and restoration, but we want a stronger / more efficient main branch for spatial-context modeling.” [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+This is important for your comparison answer: **Baseline 2 is an evolution, not a total replacement of Baseline 1’s philosophy**. It preserves the belief that frequency-aware restoration helps, but changes the **primary representation engine** and adds a **new refinement stage**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 6) What is the refinement module doing?
+
+This is another big architectural change.
+
+Baseline 1 produces the final result through **fusion of the DWT-FFC branch and the ConvNeXt prior branch**, supervised with a GAN discriminator. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+Baseline 2 instead does:
+
+1.  **preliminary dehazing** via the dehazing module,
+2.  **then refinement** via a **lightweight Retinex-inspired transformer**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+The paper says this refinement module is used for:
+
+*   **color correction**, and
+*   **structure/detail refinement**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+It is inspired by **Retinex theory**, which is often used in enhancement tasks because it separates illumination-like effects from reflectance/content-like structure. In the paper’s formula, the refinement module takes the dehazing output and its per-pixel channel mean to predict a cleaner final image. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+Conceptually, this means the authors observed that **haze removal alone is not enough**. You may get a mostly dehazed image, but still have:
+
+*   color deviations,
+*   weak texture recovery,
+*   insufficient visual vividness. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+So they introduced a second, lightweight stage specifically to polish those aspects.
+
+***
+
+# 7) Training / optimization strategy of Baseline 2
+
+Baseline 2 uses a **two-stage training process**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+## Stage I: Train the dehazing module
+
+The refinement module is ignored at first. The dehazing module and discriminator are trained using:
+
+*   **Adam** optimizer,
+*   $$\beta_1 = 0.9$$, $$\beta_2 = 0.999$$,
+*   initial learning rate **1e-4**,
+*   total **5000 epochs**,
+*   learning rate decay by **0.5×** at **1500, 3000, and 4000 epochs**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+The Stage I loss is:
+
+*   **L1 loss**,
+*   **MS-SSIM**,
+*   **perceptual loss**,
+*   **adversarial loss**,
+
+with weights:
+
+*   $$\alpha = 0.4$$,
+*   $$\beta = 0.01$$,
+*   $$\gamma = 0.0005$$. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+## Stage II: Train refinement
+
+Then they train:
+
+*   the refinement module for **500 epochs**,
+*   and the whole model for another **500 epochs**,
+*   with a fixed learning rate of **1e-5**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+They also explicitly say they **remove the adversarial loss** when optimizing the refinement module. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+That is a meaningful change from Baseline 1: Baseline 1 uses a single overall objective for the whole model, while Baseline 2 has a **staged optimization plan** because the architecture itself is now functionally separated into **dehazing first, refinement second**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 8) Datasets and augmentation
+
+Baseline 2 is evaluated on:
+
+*   **NH-HAZE**,
+*   **NH-HAZE2**,
+*   **HD-NH-HAZE**,
+*   **HD-NH-HAZE2 / DNH-HAZE2**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+It uses paired data and the same general augmentation philosophy you saw in Baseline 1:
+
+*   random **384×384** crops,
+*   rotations **90°, 180°, 270°**,
+*   vertical flip,
+*   horizontal flip. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+This is another sign that Baseline 2 is building on the earlier practical pipeline rather than completely changing the data setup.
+
+***
+
+# 9) Quantitative results and ablations
+
+The paper reports that DehazeDCT outperforms prior methods including:
+
+*   **FFA**,
+*   **TDN**,
+*   **AECR-Net**,
+*   **DWT-FFC** (Baseline 1),
+*   **DehazeFormer**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+For example, in Table 1 it slightly improves over DWT-FFC across all four reported datasets, including **HD-NH-HAZE** and **HD-NH-HAZE2**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+The ablations are also very important for understanding the design motivation:
+
+*   removing the **refinement module** hurts performance,
+*   removing the **dehazing module** hurts even more,
+*   using **only the main branch** is worse than full dehazing module,
+*   using **only the frequency branch** is worse still. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+This tells you the architecture logic is:
+
+*   the **DCNFormer main branch** is the strongest representation learner,
+*   the **frequency-aware branch** adds complementary frequency/detail information,
+*   the **refinement module** improves final color/detail quality. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 10) Direct comparison: Baseline 2 vs Baseline 1
+
+Now to the main part of your assignment: **what changed, and why?**
+
+***
+
+## A. Main branch changed from **FFC-based CNN branch** to **DCNv4-based transformer-like branch**
+
+### Baseline 1
+
+The first branch is a **DWT-FFC encoder–decoder**:
+
+*   DWT captures high-frequency information,
+*   FFC captures global context through frequency-domain processing. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Baseline 2
+
+The main branch becomes a **DCNFormer transformer-like branch**:
+
+*   deformable convolution v4 is used instead of self-attention,
+*   it provides adaptive spatial sampling and long-range dependency,
+*   it is intended to be more efficient for high-resolution images. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Motivation
+
+The authors likely felt that while FFC is good at introducing global context, it still does not fully solve the challenge of **adaptive spatial aggregation** and **efficient high-resolution dehazing**. Baseline 2 explicitly states the limitations of both large-kernel CNNs and standard transformer self-attention, then positions DCNv4 as a more efficient alternative. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+**Interpretation:**  
+Baseline 1 says: *“Use frequency/global context + transfer learning.”*  
+Baseline 2 says: *“Use adaptive deformable transformer-like modeling for stronger/efficient high-res restoration, while still keeping frequency help.”* [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+## B. ConvNeXt prior branch is replaced by a dedicated refinement transformer
+
+### Baseline 1
+
+The second branch is a **pretrained ConvNeXt encoder-decoder** whose purpose is **transfer learning / prior knowledge** from ImageNet, especially because the datasets are small. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Baseline 2
+
+There is no ConvNeXt prior branch. Instead, the second major component is a **lightweight Retinex-inspired transformer refinement module** for **color correction and detail enhancement** after the main dehazing. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Motivation
+
+This suggests a shift in emphasis:
+
+*   **Baseline 1** is heavily concerned with **small-data generalization** via a pretrained backbone. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+*   **Baseline 2** is more concerned with **effective/efficient dehazing itself** and then **post-dehazing perceptual refinement**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+So one plausible high-level motivation is:
+
+> Once they improved the main representation learner (DCNFormer), they may have found it more beneficial to spend parameters on **refinement of color/detail** than on a second heavy prior-knowledge branch. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+## C. Frequency information stays, but becomes auxiliary
+
+### Baseline 1
+
+Frequency-domain modeling is extremely central: DWT + FFC are core defining blocks. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Baseline 2
+
+Frequency information is still kept through a **frequency-aware branch**, but it is now **supporting** the DCNFormer main branch rather than being the primary identity of the whole model. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Motivation
+
+This likely reflects the authors’ belief that **frequency information is necessary but not sufficient**. It helps restoration, but stronger spatially adaptive/contextual modeling is needed as the primary driver for challenging dense high-res haze. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+## D. Single integrated GAN-style optimization becomes staged optimization
+
+### Baseline 1
+
+The architecture is trained as a single two-branch GAN framework with a combined total loss. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Baseline 2
+
+Training is explicitly **two-stage**:
+
+1.  train the dehazing module,
+2.  then train/attach the refinement module. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+### Motivation
+
+Because Baseline 2 separates the tasks more cleanly:
+
+*   stage I learns to **remove haze**,
+*   stage II learns to **polish appearance**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+This staged design probably makes optimization easier and lets the refinement network focus on a better intermediate image rather than learning everything jointly from scratch.
+
+***
+
+# 11) Best concise answer to “what is the motivation for making these changes?”
+
+If your PhD student asks this directly, I think the best answer is something like this:
+
+> **Baseline 2 changes Baseline 1 mainly to improve high-resolution non-homogeneous dehazing efficiency and adaptivity.** Baseline 1 uses DWT + FFC + pretrained ConvNeXt to capture frequency information, global context, and transfer-learning priors, which works well but still relies on CNN-style components and a heavy dual-branch design. Baseline 2 replaces the main representation learner with a DCNv4-based transformer-like branch so the model can capture long-range dependencies and perform adaptive spatial aggregation more efficiently than standard self-attention on large images. It keeps a frequency-aware auxiliary branch because frequency information is still useful, and it replaces the ConvNeXt prior branch with a lightweight Retinex-inspired transformer refinement module to specifically improve color fidelity and structural detail after dehazing. In short, the changes are motivated by the need for **better high-resolution efficiency, stronger adaptive modeling of irregular haze, and better final color/detail refinement**. [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# 12) What to focus on before you look at the code
+
+Since you said you want to focus on the **technical paper aspects first**, here are the background topics most worth refreshing specifically for Baseline 2:
+
+1.  **Deformable convolution**
+    *   offsets, modulation, adaptive sampling
+    *   why it differs from standard conv [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+2.  **DCNv3 / DCNv4 intuition**
+    *   especially why removing softmax on modulation weights matters for speed / flexibility in this paper’s narrative [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+3.  **Transformer block structure**
+    *   LN, token mixing / attention substitute, FFN
+    *   enough to understand “transformer-like block” terminology [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+4.  **Retinex theory (high level)**
+    *   illumination vs reflectance intuition
+    *   why it is useful for color/detail refinement [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+5.  **How Baseline 1’s DWT/FFC branch worked**
+    *   because Baseline 2 explicitly keeps a frequency-aware branch and references DWT-FFC as related work [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+***
+
+# Final takeaway
+
+If I had to summarize Baseline 2 in one paragraph:
+
+> **DehazeDCT is a next-step evolution of Baseline 1 for non-homogeneous dehazing.** It keeps the idea that frequency information matters, but replaces the earlier FFC/ConvNeXt-centric design with a more efficient high-resolution architecture centered on **DCNv4-based transformer-like blocks**. The motivation is to get **long-range dependency + adaptive spatial aggregation** without the heavy cost of full self-attention, which is especially important for **4000×6000** dense haze images. Then, instead of relying on a pretrained ConvNeXt prior branch, it adds a **lightweight Retinex-inspired refinement transformer** to improve color fidelity and texture/structure after the main dehazing step. So the big picture is: **from frequency + transfer-learning priors (Baseline 1) → to adaptive deformable transformer-style dehazing + dedicated perceptual refinement (Baseline 2).** [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf), [\[Baseline2 \| PDF\]](https://urbanandmainlines-my.sharepoint.com/personal/bart_kowal_urbanandmainlines_com/Documents/Microsoft%20Copilot%20Chat%20Files/Baseline2.pdf)
+
+If you want, next I can do one of these:
+
+1.  **Make you a clean “Baseline 1 vs Baseline 2” comparison sheet** you can use in a meeting,
+2.  **List the exact background topics you should review for Baseline 2**, or
+3.  **Turn this into a repo-reading checklist** so when you open the Baseline 2 code, you know exactly what modules to inspect first.
