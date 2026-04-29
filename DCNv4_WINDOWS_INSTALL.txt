@@ -1,0 +1,48 @@
+DCNv4 install notes for Windows
+
+Why `pip install DCNv4` failed
+- The DCNv4 setup script checks both `torch.cuda.is_available()` and `CUDA_HOME`.
+- Your PyTorch runtime can report CUDA as available while the build still fails if the full CUDA toolkit is not installed or `CUDA_HOME` is not set.
+- The failing condition is in `DCNv4_op/setup.py`.
+
+What you need
+- A CUDA toolkit installation on Windows, not only the Conda `cudatoolkit` runtime package.
+- Visual Studio Build Tools with the C++ workload.
+- The install must use the local project package: `./DCNv4_op`.
+
+Recommended checks inside the Conda env
+1. Confirm PyTorch sees CUDA:
+   python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
+
+2. Confirm PyTorch can find the CUDA toolkit path:
+   python -c "from torch.utils.cpp_extension import CUDA_HOME; print(CUDA_HOME)"
+
+3. Confirm `nvcc` is on PATH:
+   nvcc --version
+
+If step 1 is True but step 2 is None or step 3 fails, install the full NVIDIA CUDA toolkit and reopen the terminal.
+
+Environment variables to check
+- `CUDA_PATH`
+- `CUDA_HOME`
+
+Typical value example
+- `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.3`
+
+PowerShell example to set them for the current session
+1. $env:CUDA_PATH = "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.3"
+2. $env:CUDA_HOME = $env:CUDA_PATH
+3. $env:PATH = "$env:CUDA_PATH\bin;$env:CUDA_PATH\libnvvp;$env:PATH"
+
+Install order
+1. pip install -r requirements-inference.txt
+2. pip install --no-build-isolation -e ./DCNv4_op
+
+Why `--no-build-isolation` helps
+- It makes pip build the extension against the packages already installed in your active Conda environment instead of a temporary isolated build environment.
+
+Do not use this command for this repo
+- `pip install DCNv4`
+
+Use this command instead from the Dehazing_R root
+- `pip install --no-build-isolation -e ./DCNv4_op`

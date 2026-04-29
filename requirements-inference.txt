@@ -1,16 +1,17 @@
 # Dehazing_R inference environment for Python 3.8.
 # Assumes torch==1.11.0 and torchvision==0.12.0 are already installed.
-# Install from the Dehazing_R repo root with:
+# Install the pure Python dependencies from the Dehazing_R repo root with:
 #   pip install -r requirements-inference.txt
 #
-# The local DCNv4 package below builds a CUDA extension. On Windows this
-# requires the CUDA toolkit that matches your PyTorch CUDA build and Visual
-# Studio C++ build tools.
+# Install DCNv4 separately after the CUDA toolkit and Visual Studio C++ build
+# tools are configured:
+#   pip install --no-build-isolation -e ./DCNv4_op
+#
+# Do not use `pip install DCNv4` from PyPI for this project. This repo already
+# includes the matching local source package under ./DCNv4_op.
 
 numpy<2
 Pillow
 timm==0.6.11
 einops>=0.6,<0.8
 ninja
-
--e ./DCNv4_op
