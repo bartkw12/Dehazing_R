@@ -1,0 +1,28 @@
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2\Dehazing_R> pip install DCNv4
+Collecting DCNv4
+  Using cached DCNv4-1.0.0.post2.tar.gz (19 kB)
+  Preparing metadata (setup.py) ... error
+  error: subprocess-exited-with-error
+  
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [8 lines of output]
+      Traceback (most recent call last):
+        File "<string>", line 2, in <module>
+        File "<pip-setuptools-caller>", line 34, in <module>
+        File "C:\Users\BBM\AppData\Local\Temp\pip-install-s6toe26c\dcnv4_750c7dfecc3f424db206bb64c864e71c\setup.py", line 70, in <module>
+          ext_modules=get_extensions(),
+        File "C:\Users\BBM\AppData\Local\Temp\pip-install-s6toe26c\dcnv4_750c7dfecc3f424db206bb64c864e71c\setup.py", line 48, in get_extensions
+          raise NotImplementedError('Cuda is not available')
+      NotImplementedError: Cuda is not available
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2\Dehazing_R> 
