@@ -10,6 +10,10 @@ What you need
 - Visual Studio Build Tools with the C++ workload.
 - The install must use the local project package: `./DCNv4_op`.
 
+Local compatibility notes in this repo
+- `DCNv4_op/setup.py` includes `-allow-unsupported-compiler` for newer Visual Studio toolchains.
+- The local CUDA sources compile without `BFloat16` dispatch to avoid CUDA 11.3 BF16 build failures on Windows.
+
 Recommended checks inside the Conda env
 1. Confirm PyTorch sees CUDA:
    python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"

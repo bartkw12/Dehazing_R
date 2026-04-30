@@ -70,8 +70,8 @@ at::Tensor dcnv4_cuda_forward(
 
   for (int n = 0; n < batch / im2col_step_; ++n) {
     auto columns = output_n.select(0, n);
-    AT_DISPATCH_FLOATING_TYPES_AND2(
-        at::ScalarType::Half, at::ScalarType::BFloat16, value.scalar_type(),
+    AT_DISPATCH_FLOATING_TYPES_AND(
+      at::ScalarType::Half, value.scalar_type(),
         "dcnv4_forward_cuda", ([&] {
           dcnv4_im2col_cuda(
               at::cuda::getCurrentCUDAStream(),
@@ -146,8 +146,8 @@ dcnv4_cuda_backward(
 
   for (int n = 0; n < batch / im2col_step_; ++n) {
     auto columns = grad_output_n.select(0, n);
-    AT_DISPATCH_FLOATING_TYPES_AND2(
-        at::ScalarType::Half, at::ScalarType::BFloat16, value.scalar_type(),
+    AT_DISPATCH_FLOATING_TYPES_AND(
+      at::ScalarType::Half, value.scalar_type(),
         "dcnv4_backward_cuda", ([&] {
           dcnv4_col2im_cuda(
               at::cuda::getCurrentCUDAStream(),
