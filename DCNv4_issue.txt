@@ -1,0 +1,50 @@
+DCNv4 build issue summary
+
+Current situation
+- Dehazing_R inference is blocked because the project depends on the custom CUDA extension under DCNv4_op.
+- The extension must compile successfully before the model can run its forward pass.
+- Because DCNv4 does not build on this Windows machine, I cannot run inference for this baseline yet.
+
+What I verified
+- The Conda environment dehazedct activates correctly.
+- PyTorch sees CUDA and reports version 11.3.
+- nvcc is installed and found on PATH.
+- cl.exe is now found from the Visual Studio Build Tools install.
+- Pure Python dependencies from requirements-inference.txt install correctly.
+
+What failed earlier
+- At first, DCNv4 failed because CUDA toolkit discovery was incomplete.
+- Then it failed because cl.exe was not available in the shell.
+- Then it failed because the Visual C++ environment was active but DISTUTILS_USE_SDK was not set.
+
+What the current build log shows
+- The build now gets into actual C++ and CUDA compilation.
+- The compiler path being used is an x86 toolchain, not an x64 one.
+- The build folder in the log is win32-cpython-38, which indicates a 32-bit compile path is being used during the extension build.
+- The errors also show a toolchain compatibility problem between CUDA 11.3 and the installed Microsoft C++ standard library / compiler version.
+
+Important error signals from the current build log
+- The compiler path points to Hostx86/x86 cl.exe.
+- The build output path is temp.win32-cpython-38.
+- The STL header reports: error STL1002: Unexpected compiler version, expected CUDA 12.4 or newer.
+- Many follow-on errors then appear in Visual Studio and CUDA headers, including redeclarations of size_t, repeated template definitions, and intrinsic mismatch errors.
+
+Why inference cannot run
+- This model is not pure Python or pure PyTorch.
+- It calls into DCNv4, which is a compiled CUDA extension.
+- If DCNv4 does not build, the Dehazing_R model cannot execute inference.
+
+Most likely root causes now
+1. The active MSVC toolchain is x86 instead of x64.
+2. The installed Visual Studio toolset and STL are too new for CUDA 11.3.
+3. CUDA 11.3 is old enough that it is sensitive to compiler and STL version mismatches on modern Windows toolchains.
+
+What likely needs to happen next
+1. Build from an x64 Native Tools or x64 Developer PowerShell environment, not an x86 one.
+2. Use an older supported MSVC toolset, ideally VS 2019 / v142 or another CUDA-11.3-compatible host compiler.
+3. Keep using the local patched DCNv4_op source rather than the PyPI package.
+
+Bottom line for supervisor
+- I do not have Dehazing_R results yet because the required DCNv4 CUDA extension does not compile on the current Windows toolchain.
+- I resolved several environment issues, but the remaining blocker is now a low-level compiler compatibility issue between CUDA 11.3, the active Microsoft compiler environment, and the custom extension source.
+- Until that extension compiles successfully, inference for this baseline cannot proceed.
