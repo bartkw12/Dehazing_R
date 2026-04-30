@@ -1,64 +1,768 @@
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2> $env:Path += ";I:\Install\NVIDIA TOOL KIT OTHER\bin"
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2> nvcc --version
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2021 NVIDIA Corporation
-Built on Sun_Mar_21_19:24:09_Pacific_Daylight_Time_2021
-Cuda compilation tools, release 11.3, V11.3.58
-Build cuda_11.3.r11.3/compiler.29745058_0
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2> pip install DCNv4
-Collecting DCNv4
-  Using cached DCNv4-1.0.0.post2.tar.gz (19 kB)
-  Preparing metadata (setup.py) ... done
-Building wheels for collected packages: DCNv4
-  Building wheel for DCNv4 (setup.py) ... error
-  error: subprocess-exited-with-error
-  
-  × python setup.py bdist_wheel did not run successfully.
-  │ exit code: 1
-  ╰─> [36 lines of output]
-      running bdist_wheel
-      C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py:387: UserWarning: Attempted to use ninja as the BuildExtension backend but we could not find ninja.. Falling back to using the slow distutils backend.
-        warnings.warn(msg.format('we could not find ninja.'))
-      running build
-      running build_py
-      creating build
-      creating build\lib.win-amd64-3.8
-      creating build\lib.win-amd64-3.8\DCNv4
-      copying DCNv4\__init__.py -> build\lib.win-amd64-3.8\DCNv4
-      creating build\lib.win-amd64-3.8\DCNv4\functions
-      copying DCNv4/functions\dcnv4_func.py -> build\lib.win-amd64-3.8\DCNv4/functions
-      copying DCNv4/functions\flash_deform_attn_func.py -> build\lib.win-amd64-3.8\DCNv4/functions
-      copying DCNv4/functions\table.py -> build\lib.win-amd64-3.8\DCNv4/functions
-      copying DCNv4/functions\__init__.py -> build\lib.win-amd64-3.8\DCNv4/functions
-      creating build\lib.win-amd64-3.8\DCNv4\modules
-      copying DCNv4/modules\dcnv4.py -> build\lib.win-amd64-3.8\DCNv4/modules
-      copying DCNv4/modules\flash_deform_attn.py -> build\lib.win-amd64-3.8\DCNv4/modules
-      copying DCNv4/modules\__init__.py -> build\lib.win-amd64-3.8\DCNv4/modules
-      running build_ext
-      C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py:322: UserWarning: Error checking compiler version for cl: [WinError 2] The system cannot find the file specified
-        warnings.warn(f'Error checking compiler version for {compiler}: {error}')
-      creating build\temp.win-amd64-3.8
-      creating build\temp.win-amd64-3.8\Release
-      creating build\temp.win-amd64-3.8\Release\Users
-      creating build\temp.win-amd64-3.8\Release\Users\BBM
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src
-      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src\cuda
-      "I:\Install\NVIDIA TOOL KIT OTHER\bin\nvcc" -c C:\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src\cuda\dcnv4_cuda.cu -o build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src\cuda\dcnv4_cuda.obj -IC:\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include\torch\csrc\api\include -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include\TH -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include\THC "-II:\Install\NVIDIA TOOL KIT OTHER\include" -IC:\Users\BBM\miniconda3\envs\dehazedct\include -IC:\Users\BBM\miniconda3\envs\dehazedct\Include "-IC:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.50.35717\include" "-IC:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\VS\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -Xcudafe --diag_suppress=dll_interface_conflict_dllexport_assumed -Xcudafe --diag_suppress=dll_interface_conflict_none_assumed -Xcudafe --diag_suppress=field_without_dll_interface -Xcudafe --diag_suppress=base_class_has_different_dll_interface -Xcompiler /EHsc -Xcompiler /wd4190 -Xcompiler /wd4018 -Xcompiler /wd4275 -Xcompiler /wd4267 -Xcompiler /wd4244 -Xcompiler /wd4251 -Xcompiler /wd4819 -Xcompiler /MD -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -O3 -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=ext -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --use-local-env
-      I:\Install\NVIDIA TOOL KIT OTHER\include\crt/host_config.h(160): fatal error C1189: #error:  -- unsupported Microsoft Visual Studio version! Only the versions between 2017 and 2019 (inclusive) are supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
-      dcnv4_cuda.cu
-      error: command 'I:\\Install\\NVIDIA TOOL KIT OTHER\\bin\\nvcc.exe' failed with exit code 2
-      [end of output]
-  
-  note: This error originates from a subprocess, and is likely not a problem with pip.
-  ERROR: Failed building wheel for DCNv4
-  Running setup.py clean for DCNv4
-Failed to build DCNv4
-ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (DCNv4)
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2> pip install --no-build-isolation -e ./DCNv4_op
-ERROR: ./DCNv4_op is not a valid editable requirement. It should either be a path to a local project or a VCS URL (beginning with bzr+http, bzr+https, bzr+ssh, bzr+sftp, bzr+ftp, bzr+lp, bzr+file, git+http, git+https, git+ssh, git+git, git+file, hg+file, hg+http, hg+https, hg+ssh, hg+static-http, svn+ssh, svn+http, svn+https, svn+svn, svn+file).
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2> 
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=16, transfer_t=ulonglong4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=16]"
+    (481): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=16, transfer_t=ulonglong4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=16]"
+    (481): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=16, transfer_t=ulonglong4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=16]"
+    (481): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=16, transfer_t=ulonglong4, L=5, K=8]"
+    (387): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=16]"
+    (481): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=1, K=8]"
+    (359): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=2, K=8]"
+    (366): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=3, K=8]"
+    (373): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=4, K=8]"
+    (380): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=2, transfer_t=uint2, L=5, K=8]"
+    (387): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint2, K=8, d_stride=2]"
+    (510): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=1, K=8]"
+    (359): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=2, K=8]"
+    (366): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=3, K=8]"
+    (373): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=4, K=8]"
+    (380): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=4, transfer_t=uint4, L=5, K=8]"
+    (387): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=uint4, K=8, d_stride=4]"
+    (521): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=1, K=8]"
+    (352): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=1, K=8]"
+    (359): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=2, K=8]"
+    (364): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=2, K=8]"
+    (366): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=3, K=8]"
+    (371): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=3, K=8]"
+    (373): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=4, K=8]"
+    (378): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=4, K=8]"
+    (380): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(222): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(258): warning: variable "cache_grad_off_idx" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(189): warning: variable "lane_id" was declared but never referenced
+              detected during:
+                instantiation of "void backward_kernel_warp_primitive<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=5, K=8]"
+    (385): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src\cuda/flash_deform_col2im_cuda.cuh(69): warning: floating-point value does not fit in required floating-point type
+              detected during:
+                instantiation of "void backward_kernel<scalar_t,d_stride,transfer_t,L,K>(const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *) [with scalar_t=c10::BFloat16, d_stride=8, transfer_t=ulonglong4, L=5, K=8]"
+    (387): here
+                instantiation of "void _flash_deformable_col2im_cuda<scalar_t,stride_type,K,d_stride>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int) [with scalar_t=c10::BFloat16, stride_type=ulonglong4, K=8, d_stride=8]"
+    (532): here
+                instantiation of "void flash_deformable_col2im_cuda_inner<scalar_t,K>(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16, K=8]"
+    (574): here
+                instantiation of "void flash_deformable_col2im_cuda(cudaStream_t, const scalar_t *, const int64_t *, const int64_t *, const scalar_t *, const scalar_t *, int, int, int, int, int, int, int, at::opmath_type<scalar_t> *, at::opmath_type<scalar_t> *, int, int) [with scalar_t=c10::BFloat16]"
+    I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\src\cuda\flash_deform_attn_cuda.cu(138): here
+    
+    17 errors detected in the compilation of "I:/Python/Research/Baselines/Baseline2/Dehazing_R/DCNv4_op/src/cuda/flash_deform_attn_cuda.cu".
+    flash_deform_attn_cuda.cu
+    ninja: build stopped: subcommand failed.
+    Traceback (most recent call last):
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py", line 1740, in _run_ninja_build
+        subprocess.run(
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\subprocess.py", line 516, in run
+        raise CalledProcessError(retcode, process.args,
+    subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+    
+    The above exception was the direct cause of the following exception:
+    
+    Traceback (most recent call last):
+      File "<string>", line 2, in <module>
+      File "<pip-setuptools-caller>", line 34, in <module>
+      File "I:\Python\Research\Baselines\Baseline2\Dehazing_R\DCNv4_op\setup.py", line 64, in <module>
+        setup(
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\__init__.py", line 155, in setup
+        return distutils.core.setup(**attrs)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\core.py", line 148, in setup
+        return run_commands(dist)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\core.py", line 163, in run_commands
+        dist.run_commands()
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\dist.py", line 967, in run_commands
+        self.run_command(cmd)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\dist.py", line 986, in run_command
+        cmd_obj.run()
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\command\develop.py", line 34, in run
+        self.install_for_development()
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\command\develop.py", line 114, in install_for_development
+        self.run_command('build_ext')
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\cmd.py", line 313, in run_command
+        self.distribution.run_command(command)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\dist.py", line 986, in run_command
+        cmd_obj.run()
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\command\build_ext.py", line 79, in run
+        _build_ext.run(self)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\command\build_ext.py", line 339, in run
+        self.build_extensions()
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py", line 741, in build_extensions
+        build_ext.build_extensions(self)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\command\build_ext.py", line 448, in build_extensions
+        self._build_extensions_serial()
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\command\build_ext.py", line 473, in _build_extensions_serial
+        self.build_extension(ext)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\command\build_ext.py", line 202, in build_extension
+        _build_ext.build_extension(self, ext)
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\setuptools\_distutils\command\build_ext.py", line 528, in build_extension
+        objects = self.compiler.compile(sources,
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py", line 714, in win_wrap_ninja_compile
+        _write_ninja_file_and_compile_objects(
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py", line 1419, in _write_ninja_file_and_compile_objects
+        _run_ninja_build(
+      File "C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py", line 1756, in _run_ninja_build
+        raise RuntimeError(message) from e
+    RuntimeError: Error compiling objects for extension
+    [end of output]
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2\Dehazing_R> 
