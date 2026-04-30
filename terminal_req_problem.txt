@@ -1,28 +1,64 @@
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2\Dehazing_R> pip install DCNv4
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> $env:Path += ";I:\Install\NVIDIA TOOL KIT OTHER\bin"
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2021 NVIDIA Corporation
+Built on Sun_Mar_21_19:24:09_Pacific_Daylight_Time_2021
+Cuda compilation tools, release 11.3, V11.3.58
+Build cuda_11.3.r11.3/compiler.29745058_0
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> pip install DCNv4
 Collecting DCNv4
   Using cached DCNv4-1.0.0.post2.tar.gz (19 kB)
-  Preparing metadata (setup.py) ... error
+  Preparing metadata (setup.py) ... done
+Building wheels for collected packages: DCNv4
+  Building wheel for DCNv4 (setup.py) ... error
   error: subprocess-exited-with-error
   
-  × python setup.py egg_info did not run successfully.
+  × python setup.py bdist_wheel did not run successfully.
   │ exit code: 1
-  ╰─> [8 lines of output]
-      Traceback (most recent call last):
-        File "<string>", line 2, in <module>
-        File "<pip-setuptools-caller>", line 34, in <module>
-        File "C:\Users\BBM\AppData\Local\Temp\pip-install-s6toe26c\dcnv4_750c7dfecc3f424db206bb64c864e71c\setup.py", line 70, in <module>
-          ext_modules=get_extensions(),
-        File "C:\Users\BBM\AppData\Local\Temp\pip-install-s6toe26c\dcnv4_750c7dfecc3f424db206bb64c864e71c\setup.py", line 48, in get_extensions
-          raise NotImplementedError('Cuda is not available')
-      NotImplementedError: Cuda is not available
+  ╰─> [36 lines of output]
+      running bdist_wheel
+      C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py:387: UserWarning: Attempted to use ninja as the BuildExtension backend but we could not find ninja.. Falling back to using the slow distutils backend.
+        warnings.warn(msg.format('we could not find ninja.'))
+      running build
+      running build_py
+      creating build
+      creating build\lib.win-amd64-3.8
+      creating build\lib.win-amd64-3.8\DCNv4
+      copying DCNv4\__init__.py -> build\lib.win-amd64-3.8\DCNv4
+      creating build\lib.win-amd64-3.8\DCNv4\functions
+      copying DCNv4/functions\dcnv4_func.py -> build\lib.win-amd64-3.8\DCNv4/functions
+      copying DCNv4/functions\flash_deform_attn_func.py -> build\lib.win-amd64-3.8\DCNv4/functions
+      copying DCNv4/functions\table.py -> build\lib.win-amd64-3.8\DCNv4/functions
+      copying DCNv4/functions\__init__.py -> build\lib.win-amd64-3.8\DCNv4/functions
+      creating build\lib.win-amd64-3.8\DCNv4\modules
+      copying DCNv4/modules\dcnv4.py -> build\lib.win-amd64-3.8\DCNv4/modules
+      copying DCNv4/modules\flash_deform_attn.py -> build\lib.win-amd64-3.8\DCNv4/modules
+      copying DCNv4/modules\__init__.py -> build\lib.win-amd64-3.8\DCNv4/modules
+      running build_ext
+      C:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\utils\cpp_extension.py:322: UserWarning: Error checking compiler version for cl: [WinError 2] The system cannot find the file specified
+        warnings.warn(f'Error checking compiler version for {compiler}: {error}')
+      creating build\temp.win-amd64-3.8
+      creating build\temp.win-amd64-3.8\Release
+      creating build\temp.win-amd64-3.8\Release\Users
+      creating build\temp.win-amd64-3.8\Release\Users\BBM
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src
+      creating build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src\cuda
+      "I:\Install\NVIDIA TOOL KIT OTHER\bin\nvcc" -c C:\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src\cuda\dcnv4_cuda.cu -o build\temp.win-amd64-3.8\Release\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src\cuda\dcnv4_cuda.obj -IC:\Users\BBM\AppData\Local\Temp\pip-install-mbqs6mvr\dcnv4_cf6207b4ee8e47b8a6ee82639aeaaf62\src -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include\torch\csrc\api\include -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include\TH -IC:\Users\BBM\miniconda3\envs\dehazedct\lib\site-packages\torch\include\THC "-II:\Install\NVIDIA TOOL KIT OTHER\include" -IC:\Users\BBM\miniconda3\envs\dehazedct\include -IC:\Users\BBM\miniconda3\envs\dehazedct\Include "-IC:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.50.35717\include" "-IC:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\VS\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -Xcudafe --diag_suppress=dll_interface_conflict_dllexport_assumed -Xcudafe --diag_suppress=dll_interface_conflict_none_assumed -Xcudafe --diag_suppress=field_without_dll_interface -Xcudafe --diag_suppress=base_class_has_different_dll_interface -Xcompiler /EHsc -Xcompiler /wd4190 -Xcompiler /wd4018 -Xcompiler /wd4275 -Xcompiler /wd4267 -Xcompiler /wd4244 -Xcompiler /wd4251 -Xcompiler /wd4819 -Xcompiler /MD -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -O3 -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=ext -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --use-local-env
+      I:\Install\NVIDIA TOOL KIT OTHER\include\crt/host_config.h(160): fatal error C1189: #error:  -- unsupported Microsoft Visual Studio version! Only the versions between 2017 and 2019 (inclusive) are supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      dcnv4_cuda.cu
+      error: command 'I:\\Install\\NVIDIA TOOL KIT OTHER\\bin\\nvcc.exe' failed with exit code 2
       [end of output]
   
   note: This error originates from a subprocess, and is likely not a problem with pip.
-error: metadata-generation-failed
-
-× Encountered error while generating package metadata.
-╰─> See above for output.
-
-note: This is an issue with the package mentioned above, not pip.
-hint: See above for details.
-(dehazedct) PS I:\Python\Research\Baselines\Baseline2\Dehazing_R> 
+  ERROR: Failed building wheel for DCNv4
+  Running setup.py clean for DCNv4
+Failed to build DCNv4
+ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (DCNv4)
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> pip install --no-build-isolation -e ./DCNv4_op
+ERROR: ./DCNv4_op is not a valid editable requirement. It should either be a path to a local project or a VCS URL (beginning with bzr+http, bzr+https, bzr+ssh, bzr+sftp, bzr+ftp, bzr+lp, bzr+file, git+http, git+https, git+ssh, git+git, git+file, hg+file, hg+http, hg+https, hg+ssh, hg+static-http, svn+ssh, svn+http, svn+https, svn+svn, svn+file).
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> 
