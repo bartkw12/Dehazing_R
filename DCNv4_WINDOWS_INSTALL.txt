@@ -40,6 +40,10 @@ How to open the correct shell
    - `where.exe cl`
    - `cl`
 
+Prefer the x64 shell
+- If you have both x86 and x64 developer shells available, prefer the x64 one.
+- For a 64-bit Python environment, you want `cl.exe` from an x64 toolchain when possible.
+
 What you should see
 - `where.exe cl` should print a path to `cl.exe`.
 - `cl` should print Microsoft C/C++ compiler version information.
@@ -64,6 +68,8 @@ How to prepare the shell for this project
    `$env:CUDA_PATH = "I:\Install\NVIDIA TOOL KIT OTHER"`
    `$env:CUDA_HOME = $env:CUDA_PATH`
    `$env:PATH = "$env:CUDA_PATH\bin;$env:CUDA_PATH\libnvvp;$env:PATH"`
+4. If you are already inside a Visual Studio developer shell, tell Python build tools to use that active VC environment:
+   `$env:DISTUTILS_USE_SDK = "1"`
 
 Sanity checks to run in that shell
 1. `python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"`
@@ -79,6 +85,7 @@ Expected results
 3. `CUDA_HOME` should print your toolkit path.
 4. `nvcc` should be found and show CUDA 11.3.
 5. `cl.exe` should be found and print compiler information.
+6. `DISTUTILS_USE_SDK` should be set to `1` before building if the shell already has the VC environment loaded.
 
 How to use that shell with VS Code
 1. Stay in the Developer PowerShell after the checks pass.
@@ -104,6 +111,13 @@ Install order for this repo
 4. Build the local extension from the Dehazing_R root:
    `pip install --no-build-isolation -e .\DCNv4_op -v 2>&1 | Tee-Object -FilePath .\dcnv4_build.log`
 
+If the build log says the VC environment is activated but `DISTUTILS_USE_SDK` is not set
+1. Stay in the same developer shell.
+2. Run:
+   `$env:DISTUTILS_USE_SDK = "1"`
+3. Clean the DCNv4 build output again.
+4. Retry the install command.
+
 Why `--no-build-isolation` helps
 - It makes pip build the extension against the packages already installed in your active Conda environment instead of a temporary isolated build environment.
 
@@ -115,5 +129,6 @@ Command you should use from the Dehazing_R root
 
 Short diagnosis guide
 - `nvcc` works, `cl.exe` missing: open Developer PowerShell or fix Build Tools installation.
+- `nvcc` works, `cl.exe` found, but the build says VC environment is activated and `DISTUTILS_USE_SDK` is not set: set `$env:DISTUTILS_USE_SDK = "1"` and retry from the same developer shell.
 - `cl.exe` works, `nvcc` missing: fix `CUDA_PATH`, `CUDA_HOME`, or CUDA Toolkit installation.
 - Both work in Developer PowerShell but not in VS Code: launch VS Code from the Developer PowerShell using `code .`.
