@@ -28,3 +28,29 @@ torch.utils.cpp_extension.CUDA_HOME should print I:\Install\NVIDIA TOOL KIT OTHE
 where nvcc should find your toolkit bin path
 where cl should find the MSVC compiler
 
+RESULTS:
+
+(base) PS I:\Python\Research\Baselines\Baseline2> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& i:\Python\Research\Baselines\Baseline2\dehazedct_venv\Scripts\Activate.ps1)
+& : The term 'i:\Python\Research\Baselines\Baseline2\dehazedct_venv\Scripts\Activate.ps1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was 
+included, verify that the path is correct and try again.
+At line:1 char:73
++ ... igned) ; (& i:\Python\Research\Baselines\Baseline2\dehazedct_venv\Scr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(base) PS I:\Python\Research\Baselines\Baseline2> conda activate dehazedct
+WARNING: the configured environment variable(s) for prefix 'C:\Users\BBM\miniconda3\envs\dehazedct' are reserved and will be ignored: PATH.
+Remove the invalid configuration with `conda env config vars unset -p C:\Users\BBM\miniconda3\envs\dehazedct PATH`.
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> $env:CUDA_HOME = $env:CUDA_PATH
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> $env:PATH = "$env:CUDA_PATH\bin;$env:CUDA_PATH\libnvvp;$env:PATH"
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
+True
+11.3
+I:\Install\NVIDIA TOOL KIT OTHER
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> where nvcc
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2021 NVIDIA Corporation
+Built on Sun_Mar_21_19:24:09_Pacific_Daylight_Time_2021
+Cuda compilation tools, release 11.3, V11.3.58
+Build cuda_11.3.r11.3/compiler.29745058_0
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> where cl
+(dehazedct) PS I:\Python\Research\Baselines\Baseline2> 
