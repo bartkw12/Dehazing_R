@@ -68,6 +68,7 @@ at::Tensor flash_deform_attn_cuda_forward(
     AT_DISPATCH_FLOATING_TYPES_AND(
       at::ScalarType::Half, value.scalar_type(),
         "flash_deform_attn_forward_cuda", ([&] {
+          using opmath_t = at::opmath_type<scalar_t>;
           flash_deformable_im2col_cuda(
               at::cuda::getCurrentCUDAStream(),
               value.data_ptr<scalar_t>() + n * im2col_step_ * per_value_size,
@@ -138,6 +139,7 @@ flash_deform_attn_cuda_backward(
     AT_DISPATCH_FLOATING_TYPES_AND(
       at::ScalarType::Half, value.scalar_type(),
         "flash_deform_attn_backward_cuda", ([&] {
+          using opmath_t = at::opmath_type<scalar_t>;
           flash_deformable_col2im_cuda(
               at::cuda::getCurrentCUDAStream(),
               value.data_ptr<scalar_t>() + n * im2col_step_ * per_value_size,

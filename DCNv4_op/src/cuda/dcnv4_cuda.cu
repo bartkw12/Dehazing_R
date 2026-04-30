@@ -73,6 +73,7 @@ at::Tensor dcnv4_cuda_forward(
     AT_DISPATCH_FLOATING_TYPES_AND(
       at::ScalarType::Half, value.scalar_type(),
         "dcnv4_forward_cuda", ([&] {
+          using opmath_t = at::opmath_type<scalar_t>;
           dcnv4_im2col_cuda(
               at::cuda::getCurrentCUDAStream(),
               value.data_ptr<scalar_t>() + n * im2col_step_ * per_value_size,
@@ -149,6 +150,7 @@ dcnv4_cuda_backward(
     AT_DISPATCH_FLOATING_TYPES_AND(
       at::ScalarType::Half, value.scalar_type(),
         "dcnv4_backward_cuda", ([&] {
+          using opmath_t = at::opmath_type<scalar_t>;
           dcnv4_col2im_cuda(
               at::cuda::getCurrentCUDAStream(),
               value.data_ptr<scalar_t>() + n * im2col_step_ * per_value_size,
